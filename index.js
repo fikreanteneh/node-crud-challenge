@@ -42,8 +42,10 @@ const { v4: uuidv4 } = require('uuid');
 
 // Post /person - creates a new person and returns it if it is valid else returns 404
  app.post('/person', async (req, res) => {
+
     const personsDatabase = await app.get("db")
     const {name, age, hobbies} = req.body;
+    
     if ( !name || !age || isNaN(age) || ( !hobbies || !Array.isArray(hobbies)) ) {
 
         res.status(400).send("Name and Age are Both required, Age must be a number and hobbies is optional or an array")
