@@ -74,7 +74,7 @@ const { v4: uuidv4 } = require('uuid');
         res.status(404).send("Person not found");
         return;
     } 
-    else if  ( (name && typeof name !== "string" ) || (age && isNaN(req.body.age) || (hobbies & Array.isArray(hobbies)))) {
+    else if  ( (name && typeof name !== "string" ) || (age && isNaN(req.body.age) || (hobbies && !Array.isArray(hobbies)))) {
         res.status(404).send("Name must be a sting, Age must be a number and hobbies is optional or an array");
         return;
     }
