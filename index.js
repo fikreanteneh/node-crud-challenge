@@ -16,18 +16,18 @@ const cors = require('cors')
 app.use(cors())
 app.use(express.json())
 const { v4: uuidv4 } = require('uuid');
-const { error } = require('console')
-
 
 // Get /person - returns all personsDatabase
  app.get('/person', async (req, res) =>{
+
     personsDatabase = await app.get("db")
     res.status(200).send(personsDatabase);
- })
+})
 
 
  // Get /person/:personId - returns a single person by id if it exists else returns 404
  app.get('/person/:personId', async (req, res) => {
+
     const personsDatabase = await app.get("db")
     const personId = req.params.personId;
     const person = personsDatabase.find(person => person.id === personId);
@@ -64,6 +64,7 @@ const { error } = require('console')
 
 // Put /person/:personId - updates a person by id and returns the updated person if it exists and is valid else returns 404
  app.put('/person/:personId', async (req, res) => {
+
     const personsDatabase = await app.get("db")
     const {name, age, hobbies} = req.body;
     const personId = req.params.personId;
@@ -91,6 +92,7 @@ const { error } = require('console')
 
  // Delete /person/:personId - deletes a person by id and returns the remaining personsDatabase if the person exists else returns 404
 app.delete('/person/:personId', (req, res) => {
+    
     const personId = req.params.personId;
     const index = personsDatabase.findIndex(person => person.id === personId);
     personsDatabase.splice(index, 1);
@@ -104,7 +106,7 @@ app.delete('/person/:personId', (req, res) => {
 })
 
 
-//
+//Handles internal Server Error
 app.use((err, req, res, next) =>{
     res.status(500).send("Internal Server Error")
 })
